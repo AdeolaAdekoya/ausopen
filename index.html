@@ -596,14 +596,22 @@
       pointer-events: none;
       border: none;
     }
-
-    .youtube-iframe {
-      opacity: 0;
-      transition: opacity 0.4s ease-out;
+    #youtube-embed iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
     }
 
-    .youtube-iframe.loaded {
-      opacity: 1;
+    .youtube-iframe {
+      animation: iframeFadeIn 1.5s ease-out forwards;
+    }
+
+    @keyframes iframeFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
     }
 
     /* ========== Match Recaps (Highlights) ========== */
@@ -2137,19 +2145,11 @@
       </div>
     </section>
 
-    <!-- Full Screen Video Reel Section – iframe loads when in view for reliable autoplay -->
+    <!-- Full Screen Video Reel Section – player created when in view for reliable autoplay on Vercel/production -->
     <section class="video-reel-section" id="video-reel">
       <div class="video-container">
         <div class="video-wrapper">
-          <iframe 
-            id="youtube-embed"
-            class="youtube-iframe"
-            src="https://www.youtube.com/embed/L6n1tZ9l45M?enablejsapi=1&autoplay=1&mute=1&controls=0&loop=1&playlist=L6n1tZ9l45M&rel=0&showinfo=0" 
-            title="Australian Open Highlights" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen>
-          </iframe>
+          <div id="youtube-embed" class="youtube-iframe" title="Australian Open Highlights"></div>
         </div>
       </div>
     </section>
@@ -2663,14 +2663,39 @@
       nav.classList.toggle('scrolled', window.scrollY > 80);
     });
 
-    // YouTube API Integration
+    // YouTube API Integration – create player only when section is in view (fixes black screen on Vercel/production)
     let ytPlayer;
+    const YT_VIDEO_ID = 'L6n1tZ9l45M';
     function onYouTubeIframeAPIReady() {
+      // Player is created in ScrollTrigger onEnter so the embed loads in view and autoplay works
+    }
+    function ensureYoutubePlayer() {
+      if (ytPlayer && typeof ytPlayer.playVideo === 'function') {
+        ytPlayer.mute();
+        ytPlayer.playVideo();
+        return;
+      }
+      if (typeof YT === 'undefined' || !YT.Player) return;
+      var container = document.getElementById('youtube-embed');
+      if (!container || container.querySelector('iframe')) return;
       ytPlayer = new YT.Player('youtube-embed', {
+        width: '100%',
+        height: '100%',
+        videoId: YT_VIDEO_ID,
+        playerVars: {
+          autoplay: 1,
+          mute: 1,
+          controls: 0,
+          loop: 1,
+          playlist: YT_VIDEO_ID,
+          rel: 0,
+          showinfo: 0
+        },
         events: {
-          'onReady': (event) => {
-            // Video is pre-loaded and ready to play
+          onReady: function(event) {
             event.target.mute();
+            event.target.playVideo();
+            container.classList.add('loaded');
           }
         }
       });
@@ -2911,7 +2936,13 @@
         }, 0.8);
       }
 
-      // 8. Video Reel pin (desktop only - mobile uses CSS aspect-ratio)
+      // 8. Video Reel – lazy-load YouTube when in view (fixes black screen on Vercel), then pin on desktop
+      ScrollTrigger.create({
+        trigger: "#video-reel",
+        start: "top 85%",
+        once: true,
+        onEnter: () => { ensureYoutubePlayer(); }
+      });
       if (window.innerWidth > 768) {
         ScrollTrigger.create({
           trigger: "#video-reel",
@@ -2920,15 +2951,11 @@
           pin: true,
           pinSpacing: true,
           onEnter: () => {
-            if (typeof ytPlayer !== 'undefined' && ytPlayer.playVideo) {
-              ytPlayer.playVideo();
-              document.getElementById('youtube-embed').classList.add('loaded');
-            }
+            ensureYoutubePlayer();
+            if (ytPlayer && typeof ytPlayer.playVideo === 'function') ytPlayer.playVideo();
           },
           onLeaveBack: () => {
-            if (typeof ytPlayer !== 'undefined' && ytPlayer.pauseVideo) {
-              ytPlayer.pauseVideo();
-            }
+            if (ytPlayer && typeof ytPlayer.pauseVideo === 'function') ytPlayer.pauseVideo();
           }
         });
       }
