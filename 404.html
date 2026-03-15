@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — Australian Open</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ao-blue: #003B71;
+      --ao-blue-bright: #0073b2;
+      --accent: #90EE90;
+      --white: #ffffff;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { height: 100%; }
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--ao-blue);
+      color: var(--white);
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+    }
+    .ball-wrap {
+      margin-bottom: 2.5rem;
+    }
+    .ball-wrap img,
+    .ball-wrap .ball-svg {
+      width: 80px;
+      height: 80px;
+      display: block;
+      animation: bounce 2s ease-in-out infinite;
+    }
+    .ball-wrap .ball-svg {
+      margin: 0 auto;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-18px); }
+    }
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(5rem, 20vw, 10rem);
+      letter-spacing: 0.02em;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.7);
+      max-width: 320px;
+      margin: 0 auto 2rem;
+    }
+    .btn-home {
+      display: inline-block;
+      padding: 1rem 3rem;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      text-decoration: none;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.25rem;
+      letter-spacing: 2px;
+      transition: all 0.3s ease;
+    }
+    .btn-home:hover {
+      background: var(--accent);
+      color: var(--ao-blue);
+    }
+  </style>
+</head>
+<body>
+  <div class="ball-wrap">
+    <img src="tennisball.png" alt="" class="ball-img" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+    <svg class="ball-svg" viewBox="0 0 100 100" aria-hidden="true" style="display: none;">
+      <circle cx="50" cy="50" r="46" fill="#f5e6a3"/>
+      <path d="M 12 50 Q 50 20 88 50 Q 50 80 12 50" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="8" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <h1>404</h1>
+  <p>This page is out of bounds. Head back to the court.</p>
+  <a href="index.html" class="btn-home">Back to home</a>
+
+  <script>
+    (function() {
+      var img = document.querySelector('.ball-wrap .ball-img');
+      var svg = document.querySelector('.ball-wrap .ball-svg');
+      if (img && img.complete && img.naturalWidth === 0) {
+        img.style.display = 'none';
+        if (svg) svg.style.display = 'block';
+      }
+    })();
+  </script>
+</body>
+</html>

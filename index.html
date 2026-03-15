@@ -1,0 +1,3049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Australian Open — Melbourne</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://www.youtube.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ao-blue: #003B71;
+      --ao-blue-bright: #0073b2;
+      --accent: #90EE90;
+      --white: #ffffff;
+      --black: #050505;
+      --line: rgba(255,255,255,0.15);
+      
+      /* Luxury AO Reserve: Avenue of Light Palette */
+      --reserve-bg: #F5F2ED; /* Linen Off-White */
+      --reserve-navy: #001C3D;
+      --reserve-sand: #C5A16F;
+      --reserve-sand-dim: rgba(197, 161, 111, 0.4);
+      --reserve-text: #1a1a1a;
+      
+      --system-bg: var(--black);
+      --shadow: rgba(0, 0, 0, 0.35);
+      --footer-bg: #0d0d0d;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;    
+      background-color: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+      transition: background-color 0.8s ease; /* Default transition for safety */
+    }
+
+    #page-bg-overlay {
+      position: fixed;
+      inset: 0;
+      background-color: var(--black);
+      z-index: 0; /* Changed from -1 to ensure it's above body background */
+      pointer-events: none;
+      transition: background-color 0.4s ease;
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3Csvg%3E");
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Nav */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: grid;
+      grid-template-columns: 1fr max-content 1fr; /* Exact center lock */
+      align-items: center;
+      padding: 1.25rem 2.5rem;
+      background: transparent; /* Seamless Hero Integration */
+      transition: background 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                  backdrop-filter 0.4s ease;
+    }
+
+    nav.scrolled {
+      background: rgba(0, 59, 113, 0.95); /* Matched to var(--ao-blue) #003B71 */
+      backdrop-filter: blur(12px);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      justify-self: start;
+    }
+
+    .logo img {
+      height: 36px;
+      width: auto;
+      display: block;
+      filter: brightness(0) invert(1);
+    }
+
+    footer .logo img {
+      height: 44px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+      justify-self: center;
+    }
+
+    .nav-links a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.9;
+      transition: opacity 0.2s, color 0.2s;
+    }
+
+    .nav-links a:hover {
+      opacity: 1;
+      color: var(--accent);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      justify-self: end;
+      margin-left: auto; /* Ensures it pushes against the right edge of its grid cell perfectly */
+    }
+
+    .nav-btn {
+      display: inline-block;
+      padding: 0.65rem 1.5rem;
+      background: var(--ao-blue-bright);
+      color: var(--white); /* High contrast: White on Blue-Bright */
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      font-family: inherit;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .nav-btn:hover {
+      background: var(--accent);
+      color: var(--ao-blue);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-btn:focus {
+      outline: 2px solid var(--line);
+      outline-offset: 2px;
+    }
+
+    .nav-signin {
+      color: var(--white) !important;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      opacity: 0.95;
+      transition: opacity 0.2s, color 0.2s;
+    }
+
+    .nav-signin:hover {
+      opacity: 1;
+      color: var(--accent);
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 1.5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-badge {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.35em;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      animation: fadeUp 0.8s ease-out;
+    }
+
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 14vw, 10rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.5rem;
+      animation: fadeUp 0.8s ease-out 0.1s both;
+    }
+
+    .hero h1 .melbourne {
+      display: block;
+      font-size: 0.35em;
+      letter-spacing: 0.25em;
+      color: rgba(255, 255, 255, 0.95);
+      text-shadow: 1px 2px 4px rgba(0,0,0,0.3);
+      margin-top: 0.05em;
+    }
+
+    .hero-dates {
+      font-size: 1.25rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      color: rgba(255, 255, 255, 0.95);
+      text-shadow: 1px 2px 4px rgba(0,0,0,0.3);
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.8s ease-out 0.2s both;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 2rem;
+      background: var(--ao-blue-bright);
+      color: var(--white); /* High contrast: White on Blue-Bright */
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid transparent;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15), 0 0 0 0 rgba(144, 202, 249, 0);
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  background 0.4s ease,
+                  border-color 0.4s ease;
+      animation: fadeUp 0.8s ease-out 0.3s both;
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25),
+                  0 0 0 1px rgba(144, 202, 249, 0.4);
+      background: var(--accent);
+      color: var(--ao-blue);
+      border-color: rgba(144, 202, 249, 0.3);
+    }
+
+    /* Section: The Grand Slam */
+    .section {
+      position: relative;
+      z-index: 2;
+      padding: 6rem 2rem;
+      max-width: 72rem;
+      margin: 0 auto;
+    }
+
+    .section-tag {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.3em;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .section h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      color: var(--white);
+    }
+
+    .section p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: rgba(250, 249, 246, 0.85);
+      max-width: 38ch;
+    }
+
+    /* Cards strip */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      padding: 4rem 2rem;
+      max-width: 72rem;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(245, 230, 200, 0.15);
+      padding: 2rem;
+      transition: background 0.3s, border-color 0.3s, transform 0.3s;
+    }
+
+    .card:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+
+    .card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+      color: var(--white);
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: rgba(250, 249, 246, 0.7);
+      line-height: 1.5;
+    }
+
+    /* Footer */
+    footer {
+      position: relative;
+      z-index: 2;
+      padding: 3rem 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(245, 230, 200, 0.1);
+    }
+
+    footer .logo {
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+
+    footer p {
+      font-size: 0.85rem;
+      color: rgba(250, 249, 246, 0.5);
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ========== Motion & Typography System ========== */
+    .split-reveal {
+      overflow: hidden; /* Masking for text slide-ups */
+      display: block;
+    }
+    
+    .split-reveal span {
+      display: inline-block;
+      transform: translateY(110%);
+      will-change: transform;
+    }
+
+    .reveal-item {
+      opacity: 0;
+      transform: translateY(30px);
+      will-change: transform, opacity;
+    }
+
+    .player-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 4px; /* Hard clean edge */
+      overflow: hidden;
+      position: relative;
+      transition: background 0.4s, border-color 0.4s;
+      cursor: pointer;
+      perspective: 1000px; /* Enable 3D tilt */
+      height: 100%;
+    }
+
+    .player-card:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--ao-blue-bright);
+    }
+
+    .player-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(0.2) contrast(1.1);
+      transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                  filter 0.6s ease;
+      will-change: transform;
+    }
+
+    .player-card:hover img {
+      filter: grayscale(0) contrast(1);
+      transform: scale(1.05); /* Slight parallax feel */
+    }
+
+    .player-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 2.5rem 1.5rem 1.5rem;
+      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+      z-index: 2;
+    }
+
+    .player-info h4 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.75rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.25rem;
+      color: var(--white);
+    }
+
+    .player-info p {
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      opacity: 0.85;
+    }
+
+    @media (max-width: 768px) {
+      nav { 
+        padding: 1rem 1.25rem; 
+        grid-template-columns: auto 1fr; 
+        gap: 0.75rem; 
+      }
+      .nav-links { display: none; }
+      .nav-right { justify-self: end; }
+      .hero-dates { font-size: 1rem; letter-spacing: 0.15em; }
+    }
+
+    /* ========== Historical Story Section ========== */
+    .story-section {
+      position: relative;
+      height: 100vh; 
+      background: var(--ao-blue);
+      overflow: hidden;
+    }
+
+    .story-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .story-huge-text {
+      position: absolute;
+      white-space: nowrap;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 35vh;
+      line-height: 1;
+      color: rgba(255, 255, 255, 0.02);
+      z-index: 1;
+      will-change: transform;
+      pointer-events: none;
+      text-transform: uppercase;
+    }
+
+    .story-track {
+      display: flex;
+      align-items: center;
+      gap: 30vw;
+      padding: 0 50vw;
+      width: max-content;
+      position: relative;
+      z-index: 2;
+      will-change: transform;
+    }
+
+    .story-card {
+      flex-shrink: 0;
+      width: 45vw;
+      max-width: 600px;
+      position: relative;
+    }
+
+    .story-card-img-wrap {
+      width: 100%;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      border-radius: 4px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+      margin-bottom: 2rem;
+      filter: grayscale(0.5) contrast(1.1);
+      transition: filter 0.5s ease;
+    }
+
+    .story-card:hover .story-card-img-wrap {
+      filter: grayscale(0) contrast(1.1);
+    }
+
+    .story-card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .story-card-content {
+      color: var(--white);
+    }
+
+    .story-card-year {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .story-card-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    .story-card-desc {
+      font-size: 1rem;
+      line-height: 1.6;
+      opacity: 0.8;
+      max-width: 40ch;
+    }
+
+    .story-intro {
+      flex-shrink: 0;
+      width: 80vw;
+      text-align: center;
+    }
+
+    .story-intro h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 10vw, 8rem);
+      line-height: 0.9;
+      color: var(--white);
+      text-transform: uppercase;
+    }
+
+    .story-intro .highlight {
+      color: var(--accent);
+    }
+
+    /* ========== Video Reel Section ========== */
+    .video-reel-section {
+      position: relative;
+      height: 100vh; /* Controlled by GSAP pin now */
+      background: #000;
+      overflow: hidden;
+    }
+
+    .video-container {
+      width: 100%;
+      height: 100vh;
+      background: #000;
+    }
+
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .youtube-iframe {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100vw;
+      height: 56.25vw;
+      min-height: 100vh;
+      min-width: 177.77vh;
+      transform: translate(-50%, -50%) scale(1.3);
+      pointer-events: none;
+      border: none;
+    }
+
+    .youtube-iframe {
+      opacity: 0;
+      transition: opacity 0.4s ease-out;
+    }
+
+    .youtube-iframe.loaded {
+      opacity: 1;
+    }
+
+    /* ========== Match Recaps (Highlights) ========== */
+    .recaps-section {
+      background: var(--ao-blue);
+      padding: 8rem 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .recaps-intro {
+      text-align: center;
+      max-width: 32rem;
+      margin: 0 auto 4rem;
+    }
+
+    .recaps-intro__label {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .recaps-intro__title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      letter-spacing: 0.02em;
+      line-height: 1.05;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+
+    .recaps-intro__sub {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: rgba(250, 249, 246, 0.7);
+    }
+
+    .recaps-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      max-width: 1000px;
+      margin: 4rem auto 0;
+    }
+
+    @media (max-width: 600px) {
+      .recaps-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .recap-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      perspective: 1000px;
+      aspect-ratio: 16/9;
+      min-height: 0;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    .recap-flip-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      transform-style: preserve-3d;
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 8px;
+    }
+
+    .recap-link:hover .recap-flip-inner {
+      transform: rotateY(180deg);
+    }
+
+    .recap-front,
+    .recap-back {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .recap-back {
+      transform: rotateY(180deg);
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+    }
+
+    .recap-front {
+      position: relative;
+    }
+
+    .recap-front img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .recap-link:hover .recap-front img {
+      transform: scale(1.05);
+    }
+
+    .recap-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0.75rem 1rem 1rem;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 60%, transparent);
+      color: var(--white);
+    }
+
+    .recap-content p { margin: 0; font-weight: 600; font-size: 1rem; }
+    .recap-content span { font-size: 0.85rem; opacity: 0.9; }
+
+    /* Back: match result card */
+    .recap-back-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 1rem 1.25rem 0.75rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .recap-back-event {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #111;
+      margin: 0 0 0.2rem 0;
+    }
+
+    .recap-back-meta {
+      font-size: 0.8rem;
+      color: #6b7280;
+      margin: 0;
+    }
+
+    .recap-back-status {
+      text-align: right;
+    }
+
+    .recap-back-status .status {
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: #111;
+      display: block;
+    }
+
+    .recap-back-status .duration {
+      font-size: 0.8rem;
+      color: #6b7280;
+      margin: 0;
+    }
+
+    .recap-back-players {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 0.75rem 1.25rem 1rem;
+    }
+
+    .recap-back-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid #f3f4f6;
+      font-size: 0.9rem;
+    }
+
+    .recap-back-row:last-child {
+      border-bottom: none;
+    }
+
+    .recap-back-player {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .recap-back-flag {
+      flex-shrink: 0;
+      width: 22px;
+      height: 16px;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .recap-back-flag img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .recap-back-flag-emoji {
+      font-size: 1rem;
+      line-height: 1;
+      display: none;
+    }
+
+    .recap-back-row.winner .recap-back-name {
+      font-weight: 700;
+      color: #111;
+    }
+
+    .recap-back-row.winner .recap-back-scores {
+      font-weight: 700;
+      color: var(--ao-blue-bright);
+    }
+
+    .recap-back-row .recap-back-name {
+      color: #374151;
+    }
+
+    .recap-back-scores {
+      color: #6b7280;
+    }
+
+    .recap-back-row.winner .recap-back-scores::before {
+      content: "✓ ";
+      color: var(--ao-blue-bright);
+    }
+
+    /* ========== Player Champions – 3D gallery ========== */
+    .players-section {
+      background: var(--ao-blue);
+      padding: 8rem 2rem 6rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .players-intro {
+      text-align: center;
+      max-width: 32rem;
+      margin: 0 auto 4rem;
+    }
+
+    .players-intro__label {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .players-intro__title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      letter-spacing: 0.02em;
+      line-height: 1.05;
+      color: var(--white);
+    }
+
+    .players-scroll-wrap {
+      overflow: hidden;
+      /* Edge fades for the cinematic "endless" feel */
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    }
+
+    /* Marquee track — we'll duplicate cards in HTML for seamless loop */
+    .players-marquee-track {
+      display: flex;
+      gap: 1.5rem;
+      width: max-content;
+      animation: championsScroll 50s linear infinite;
+    }
+
+    /* Pause on hover */
+    .players-scroll-wrap:hover .players-marquee-track {
+      animation-play-state: paused;
+    }
+
+    @keyframes championsScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); } /* -50% because we duplicate the cards */
+    }
+
+
+    .player-card {
+      flex: 0 0 auto;
+      width: 320px;
+      min-height: 400px;
+      scroll-snap-align: start;
+      position: relative;
+      aspect-ratio: 3/4;
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.06);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .player-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+    }
+
+    .player-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .player-card .player-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.25rem 1rem;
+      background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+      color: var(--white);
+    }
+
+    .player-card .player-info h4 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.04em;
+      margin: 0 0 0.2rem 0;
+    }
+
+    .player-card .player-info p {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255, 255, 255, 0.7); /* Boosted for visibility */
+      margin: 0;
+    }
+
+    .btn-view-all {
+      display: inline-block;
+      margin-top: 4rem;
+      padding: 1rem 3rem;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      text-decoration: none;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.25rem;
+      letter-spacing: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-view-all:hover {
+      background: var(--accent);
+      color: var(--ao-blue);
+    }
+
+    /* ========== Animated image section ========== */
+    .animated-image-section {
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .animated-image-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 21/9;
+      min-height: 280px;
+      overflow: hidden;
+    }
+
+    .animated-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      will-change: transform;
+    }
+
+    /* ========== Reserve AOs section ========== */
+    /* ========== Luxury AO Reserve: Avenue of Light ========== */
+    /* ========== Luxury AO Reserve: Consolidated Brand Alignment ========== */
+    .reserve-section-wrap {
+      position: relative;
+      background: transparent;
+      padding: 10rem 0;
+      overflow: hidden;
+      color: var(--reserve-text);
+      z-index: 5;
+    }
+
+    .reserve-journal-intro {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto 6rem;
+      text-align: center;
+      padding: 0 2rem;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .reserve-journal-intro .label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--reserve-sand);
+    }
+
+    .reserve-journal-intro h2 {
+      font-family: 'Bebas Neue', sans-serif !important;
+      font-size: clamp(2.5rem, 8vw, 4.5rem); /* Scaled to align with site hierarchy */
+      font-weight: 400;
+      line-height: 0.9;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      margin: 0;
+      color: inherit;
+    }
+
+    .reserve-journal-intro .brand-story {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+      line-height: 1.6;
+      max-width: 55ch;
+      margin: 0 auto;
+      opacity: 0.8;
+      color: inherit;
+    }
+
+    .reserve-bento-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 1.5rem;
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 0 4rem;
+      z-index: 10;
+      position: relative;
+    }
+
+    .bento-card {
+      position: relative;
+      border-radius: 4px;
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.08);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 20px 50px rgba(0, 28, 61, 0.06);
+    }
+
+    .bento-card.video-main {
+      grid-column: span 12;
+      height: 650px;
+    }
+
+    @media (max-width: 768px) {
+      .bento-card.video-main {
+        height: auto;
+        aspect-ratio: 16 / 9;
+      }
+    }
+
+    .bento-card.video-main .video-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .bento-card.package-tier {
+      grid-column: span 6;
+      padding: 15rem 4rem 4rem; /* Bottom-Lock: Anchors text to base */
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end; 
+      min-height: 520px;
+      color: white !important;
+    }
+
+    .bento-card.package-tier .card-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .bento-card.package-tier:hover .card-img {
+      transform: scale(1.05);
+    }
+
+    .bento-card.package-tier::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      /* Broad Protective Scrim: Protects title/text in bottom 70%, clears top 30% */
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.98) 0%,
+        rgba(0, 0, 0, 0.85) 20%,
+        rgba(0, 0, 0, 0.5) 45%,
+        rgba(0, 0, 0, 0.2) 60%,
+        rgba(0, 0, 0, 0) 70%
+      );
+      z-index: 2;
+    }
+
+    .bento-card.package-tier .card-content,
+    .bento-card.package-tier .price-row {
+      position: relative;
+      z-index: 3;
+    }
+
+    .bento-card .tag {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: var(--reserve-sand);
+      margin-bottom: 0.75rem; 
+      display: block;
+      font-weight: 800; /* Hardened weight */
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .bento-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      line-height: 0.95;
+      margin-bottom: 0.75rem; 
+      color: white !important;
+      text-shadow: 0 4px 15px rgba(0, 0, 0, 0.6); /* Even stronger shadow for light backgrounds */
+      letter-spacing: 0.02em;
+    }
+
+    .bento-card p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.15rem;
+      line-height: 1.5;
+      opacity: 0.95;
+      max-width: 480px; /* Slightly wider for better line balance */
+      color: white !important;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4); 
+      font-weight: 500;
+      margin-top: -0.5rem; /* Tighten to title */
+    }
+
+    .bento-card .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      margin-top: 2rem; /* Reduced from 3rem */
+    }
+
+    .bento-card .price-val {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.5rem;
+      color: var(--reserve-sand);
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      line-height: 1;
+    }
+
+    .bento-card .price-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.6;
+    }
+
+    .bento-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 60px 120px rgba(0, 28, 61, 0.12);
+      border-color: var(--reserve-sand);
+    }
+
+    @media (max-width: 1024px) {
+      .reserve-bento-grid { padding: 0 2rem; }
+      .bento-card.package-tier { grid-column: span 12; padding: 4rem 2rem; }
+    }
+
+    .cinematic-vid-container {
+      width: 100%;
+      max-width: 1400px;
+      aspect-ratio: 21/9;
+      background: #111;
+      position: relative;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 50px 100px rgba(0, 0, 0, 0.8);
+    }
+
+    .cinematic-vid-container iframe,
+    .cinematic-vid-container video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.6;
+    }
+
+    .vid-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.6) 100%);
+      z-index: 2;
+    }
+
+    .vid-play-btn {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      margin-bottom: 2rem;
+    }
+
+    .vid-play-btn:hover {
+      transform: scale(1.15);
+    }
+
+    .vid-play-btn svg {
+      width: 32px;
+      height: 32px;
+      fill: var(--ao-blue);
+      margin-left: 6px;
+    }
+
+    @media (max-width: 1024px) {
+      .editorial-card {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+      .editorial-image { aspect-ratio: 16/9; }
+      .editorial-body { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+    }
+
+    @media (max-width: 768px) {
+      .reserve-swing-intro { height: 120vh; }
+      .swing-racket { width: 200px; }
+      .reserve-grid-editorial { gap: 2rem; }
+      .editorial-card { grid-template-columns: 1fr; }
+      .editorial-body, .editorial-pricing { padding: 2rem; }
+      .editorial-title { font-size: 1.75rem; }
+      .cinematic-vid-container { aspect-ratio: 16/9; }
+
+      /* ===== Story Section: Vertical stacked on mobile ===== */
+      .story-section {
+        height: auto !important;    /* Remove the fixed 100vh that relies on JS pinning */
+        overflow: visible !important;
+      }
+
+      .story-sticky {
+        position: relative !important; /* No sticky/pin on touch */
+        height: auto !important;
+        display: block;
+      }
+
+      .story-huge-text {
+        display: none; /* Too large / intrusive on small screens */
+      }
+
+      .story-track {
+        display: flex;
+        flex-direction: column !important;  /* Stack vertically */
+        gap: 3rem !important;
+        padding: 4rem 1.5rem !important;
+        width: 100% !important;      /* Full width instead of max-content */
+        transform: none !important;  /* Disable GSAP horizontal transform */
+        will-change: auto;
+      }
+
+      .story-card {
+        width: 100% !important;
+      }
+
+      .story-intro {
+        width: 100% !important;
+        padding: 2rem 0 1rem;
+      }
+
+      .story-card-img-wrap {
+        box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      }
+
+      /* ===== Video Reel: Responsive 16:9 frame on mobile ===== */
+      .video-reel-section {
+        height: auto !important;     /* Remove fixed 100vh */
+      }
+
+      .video-container {
+        height: auto !important;
+        aspect-ratio: 16 / 9;        /* Lock proper aspect ratio */
+      }
+
+      .youtube-iframe {
+        position: relative !important; /* Remove absolute centering nonsense */
+        top: auto !important;
+        left: auto !important;
+        width: 100% !important;
+        height: 100% !important;
+        min-height: unset !important;
+        min-width: unset !important;
+        transform: none !important;   /* Remove the 1.3 scale that clips */
+      }
+    }
+
+    /* ========== Media / News section ========== */
+    .media-section {
+      position: relative;
+      z-index: 5; /* Sit above overlay */
+      padding: 6rem 2rem;
+    }
+
+    .media-section .section-intro {
+      text-align: center;
+      max-width: 32rem;
+      margin: 0 auto 3rem;
+    }
+
+    .media-section .section-intro .label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .media-section .section-intro h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.25rem, 4vw, 3.25rem);
+      letter-spacing: 0.02em;
+      color: var(--white);
+    }
+
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .media-card {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.04);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .media-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+    }
+
+    .media-card img {
+      width: 100%;
+      aspect-ratio: 16/10;
+      object-fit: cover;
+      display: block;
+    }
+
+    .media-card .media-body {
+      padding: 1.25rem;
+    }
+
+    .media-card .media-date {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .media-card .media-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.35rem;
+      letter-spacing: 0.03em;
+      line-height: 1.2;
+      color: var(--white);
+    }
+
+    /* ========== Partners marquee ========== */
+    .partners-section {
+      position: relative;
+      z-index: 5; /* Sit above overlay */
+      padding: 4rem 2rem;
+      overflow: hidden;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .partners-section .section-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+      margin-bottom: 6rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .partners-section .section-intro .intro-left {
+      text-align: left;
+    }
+
+    .partners-section .section-intro .intro-right {
+      text-align: left;
+      max-width: 32ch;
+      margin-left: auto;
+    }
+
+    .partners-section .section-intro .label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .partners-section .section-intro h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: 0.02em;
+      color: var(--white);
+      margin-bottom: 0;
+    }
+
+    .partners-section .section-intro .subtitle {
+      font-size: 1rem;
+      color: var(--line);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    @media (max-width: 700px) {
+      .partners-section .section-intro {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+    }
+
+    /* ========== Global Accessibility: Light Theme Overrides ========== */
+    body.light-theme {
+      color: var(--reserve-navy);
+    }
+    
+    body.light-theme .media-section .section-intro h2,
+    body.light-theme .partners-section .section-intro h2 {
+      color: var(--reserve-navy) !important;
+    }
+
+    body.light-theme .media-section .section-intro .label,
+    body.light-theme .partners-section .section-intro .label {
+      color: var(--reserve-sand) !important;
+    }
+
+    body.light-theme .media-card {
+      background: #fff !important;
+      box-shadow: 0 10px 30px rgba(0, 28, 61, 0.05) !important;
+      border: 1px solid rgba(0,0,0,0.08) !important;
+      opacity: 1 !important; /* Ensure visibility always */
+    }
+
+    body.light-theme .media-card .media-title,
+    body.light-theme .media-card .media-date {
+      color: var(--reserve-navy) !important;
+    }
+
+    body.light-theme .partners-section {
+      border-color: rgba(0, 28, 61, 0.1) !important;
+    }
+
+    body.light-theme .partners-section .subtitle {
+      color: rgba(0, 28, 61, 0.6) !important;
+    }
+    
+    body.light-theme .nav-signin {
+      color: var(--reserve-navy) !important;
+    }
+    
+    body.light-theme .partners-marquee-item img {
+      filter: brightness(0) opacity(0.8) !important;
+    }
+
+    body.light-theme .ticket-section {
+      background: linear-gradient(to bottom, var(--reserve-bg) 50%, var(--footer-bg) 50%) !important;
+    }
+
+    body.light-theme .ticket-header h2 {
+      color: var(--white) !important; /* Keep ticket text white for the cyan header contrast */
+    }
+
+    .partners-marquee-wrap {
+      overflow: hidden;
+      user-select: none;
+      margin-top: 2.5rem;
+    }
+
+    .partners-marquee {
+      display: flex;
+      gap: 4rem;
+      width: max-content;
+      animation: partnersMarquee 40s linear infinite;
+    }
+
+    .partners-marquee:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes partnersMarquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .partners-marquee-item {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 48px;
+      min-width: 140px;
+      padding: 0 1.5rem;
+    }
+
+    .partners-marquee-item img {
+      max-height: 100%;
+      max-width: 120px;
+      width: auto;
+      object-fit: contain;
+      /* Bulletproof: Turns the entire image/box content into a silhouette */
+      filter: brightness(0) invert(1);
+      /* This ensures that if it's on a dark background, only the 'inverted' (white) parts show */
+      mix-blend-mode: screen; 
+      opacity: 0.5;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .partners-marquee-item:hover img {
+      filter: brightness(0) invert(1);
+      opacity: 0.9;
+      transform: scale(1.08);
+    }
+
+    /* ========== Loader ========== */
+    .loader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: var(--ao-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.6s ease-out, visibility 0.6s;
+    }
+
+    .loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .loader-stadium-wrap {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .loader-stadium {
+      width: min(90vmin, 600px);
+      height: min(90vmin, 600px);
+      max-width: 100%;
+      max-height: 100%;
+      overflow: visible;
+    }
+
+    .arena-court, .arena-net {
+      fill: var(--ao-blue-bright);
+      stroke: var(--line);
+      stroke-width: 3;
+      opacity: 0;
+      /* Pulse in the center court first */
+      animation: courtPulse 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+
+    @keyframes courtPulse {
+      0% { opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1.05); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .stadium-seat {
+      fill: var(--ao-blue);
+      stroke: rgba(144, 202, 249, 0.05);
+      stroke-width: 1;
+      opacity: 0;
+      /* The wave animation */
+      animation: seatWave 3.2s ease-in-out forwards;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+
+    @keyframes seatWave {
+      0% { opacity: 0; transform: scale(0.2); fill: var(--ao-blue); }
+      15% { opacity: 1; transform: scale(1.5); fill: var(--white); stroke: rgba(255,255,255,0.8); }
+      35% { opacity: 0.9; transform: scale(1); fill: var(--accent); stroke: rgba(144, 202, 249, 0.2); }
+      100% { opacity: 0.7; transform: scale(1); fill: rgba(21, 101, 192, 0.6); }
+    }
+
+    .loader.zoom-out {
+      animation: loaderZoomOut 1.4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+    }
+
+    @keyframes loaderZoomOut {
+      0% { opacity: 1; transform: scale(1); }
+      30% { opacity: 1; transform: scale(0.9); }
+      100% { opacity: 0; transform: scale(25); visibility: hidden; }
+    }
+
+    .main-content {
+      opacity: 0;
+      transform: scale(0.92);
+      transition: opacity 0.6s ease-out 0.3s, transform 0.6s ease-out 0.3s;
+    }
+
+    .main-content.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .main-content.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .ticket-section {
+      padding: 10rem 2rem 0; /* No bottom padding to connect with footer */
+      background: linear-gradient(to bottom, var(--reserve-bg) 0%, var(--reserve-bg) 50%, var(--footer-bg) 50%, var(--footer-bg) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ticket-wrapper {
+        position: relative;
+        width: 100%;
+        max-width: 1200px;
+        min-height: 360px; /* Reduced from 440px */
+        filter: drop-shadow(20px 30px 40px rgba(20, 30, 40, 0.25)) 
+                drop-shadow(2px 4px 8px rgba(20, 30, 40, 0.1));
+        transform: rotate(-0.5deg); 
+        transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        z-index: 5;
+    }
+
+    .ticket-wrapper:hover {
+        transform: rotate(0deg) scale(1.01) translateY(-5px);
+        filter: drop-shadow(25px 40px 50px rgba(20, 30, 40, 0.2)) 
+                drop-shadow(5px 10px 15px rgba(20, 30, 40, 0.1));
+    }
+
+    .ticket {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        background-color: #f7f6f1; /* Paper base */
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+        border-radius: 4px;
+        position: relative;
+        overflow: hidden;
+        
+        mask-image: radial-gradient(circle at 75% 0px, transparent 15px, black 16px),
+                    radial-gradient(circle at 75% 100%, transparent 15px, black 16px);
+        -webkit-mask-image: radial-gradient(circle at 75% 0px, transparent 15px, black 16px),
+                            radial-gradient(circle at 75% 100%, transparent 15px, black 16px);
+    }
+
+    .ticket-main {
+        width: 75%;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        border-right: 2px dashed rgba(0,0,0,0.1);
+        position: relative;
+    }
+
+    /* AO Header Strip */
+    .ticket-header {
+      background: var(--ao-blue-bright);
+      padding: 1rem 2.5rem; /* Reduced from 1.5rem */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+
+    .ticket-header h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem; /* Reduced from 2.2rem */
+      letter-spacing: 0.05em;
+      margin: 0;
+      line-height: 1;
+    }
+
+    .ticket-header .ao-logo-white {
+      height: 32px;
+      filter: brightness(0) invert(1);
+    }
+
+    .ticket-body {
+      padding: 1.5rem 2.5rem; /* Reduced from 2.5rem */
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: #1a1a1a;
+    }
+
+    .data-grid {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr 1fr;
+        gap: 1.25rem;
+        margin: 1.25rem 0;
+        border-top: 1px solid rgba(0,0,0,0.1);
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        padding: 1.25rem 0;
+        position: relative;
+    }
+
+    @media (max-width: 600px) {
+      .data-grid {
+        grid-template-columns: 1fr 1fr; /* 2 columns on mobile */
+      }
+
+      /* Countdown spans full width and floats to top */
+      .data-grid .data-group:nth-child(3) {
+        grid-column: 1 / -1; /* Full row */
+        order: -1;            /* Move to top */
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(0,0,0,0.08);
+        margin-bottom: 0.5rem;
+      }
+
+      /* Slightly reduce the countdown font on very small screens */
+      .data-grid .data-group:nth-child(3) .value {
+        font-size: 1.6rem;
+      }
+    }
+
+    .data-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .data-group .label {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.6rem;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: rgba(0,0,0,0.5);
+        margin-bottom: 0.3rem;
+        font-weight: 700;
+    }
+
+    .data-group .value {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 1.1rem;
+        color: #1a1a1a;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    .data-group .value.countdown-highlight {
+      color: var(--ao-blue-bright);
+      font-size: 1.4rem;
+    }
+
+    .ticket-footer-strip {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .barcode-container {
+      width: 240px;
+    }
+
+    .barcode {
+        height: 48px;
+        width: 100%;
+        background-image: linear-gradient(to right, 
+            #1a1a1a 0%, #1a1a1a 3%, transparent 3%, transparent 5%, 
+            #1a1a1a 5%, #1a1a1a 6%, transparent 6%, transparent 10%,
+            #1a1a1a 10%, #1a1a1a 14%, transparent 14%, transparent 16%,
+            #1a1a1a 16%, #1a1a1a 18%, transparent 18%, transparent 22%,
+            #1a1a1a 22%, #1a1a1a 28%, transparent 28%, transparent 30%,
+            #1a1a1a 30%, #1a1a1a 31%, transparent 31%, transparent 35%,
+            #1a1a1a 35%, #1a1a1a 40%, transparent 40%, transparent 42%,
+            #1a1a1a 42%, #1a1a1a 44%, transparent 44%, transparent 48%,
+            #1a1a1a 48%, #1a1a1a 55%, transparent 55%, transparent 58%,
+            #1a1a1a 58%, #1a1a1a 60%, transparent 60%, transparent 64%,
+            #1a1a1a 64%, #1a1a1a 68%, transparent 68%, transparent 70%,
+            #1a1a1a 70%, #1a1a1a 75%, transparent 75%, transparent 77%,
+            #1a1a1a 77%, #1a1a1a 78%, transparent 78%, transparent 82%,
+            #1a1a1a 82%, #1a1a1a 88%, transparent 88%, transparent 90%,
+            #1a1a1a 90%, #1a1a1a 92%, transparent 92%, transparent 95%,
+            #1a1a1a 95%, #1a1a1a 100%
+        );
+    }
+
+    .barcode-text {
+      font-family: monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.5em;
+      margin-top: 0.3rem;
+      display: block;
+    }
+
+
+    .stub {
+        width: 25%;
+        padding: 3.5rem 2rem 2.5rem; /* Reduced top padding */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        background-color: rgba(0,0,0,0.01);
+    }
+
+    .stub-label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.3);
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #1a1a1a;
+      width: 100%;
+      padding-bottom: 0.5rem;
+    }
+
+    .btn-ticket-book {
+      padding: 1rem 2rem;
+      background: var(--ao-blue-bright);
+      color: white;
+      text-decoration: none;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.05em;
+      border-radius: 2px;
+      width: 100%;
+      margin-top: auto;
+      transition: background 0.2s;
+    }
+
+    .btn-ticket-book:hover {
+      background: var(--accent);
+      color: var(--ao-blue);
+    }
+
+    /* ========== Premium Footer (Creative South Redesign) ========== */
+    footer {
+      background: var(--footer-bg);
+      padding: 3rem 2.5rem 3rem;
+      border-top: none;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .footer-logo {
+      justify-self: start;
+    }
+
+    .footer-logo img {
+      height: 48px;
+      filter: brightness(0) invert(1);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
+    .footer-socials {
+      justify-self: end;
+      display: flex;
+      gap: 1.25rem;
+    }
+
+    .social-icon {
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.05);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .social-icon svg {
+      flex-shrink: 0;
+      display: block;
+    }
+
+    .social-icon:hover {
+      background: var(--ao-blue-bright);
+      transform: translateY(-2px);
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 4rem auto 0;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom p {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.3);
+      margin: 0;
+    }
+
+    .footer-bottom a {
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-bottom a:hover {
+      color: rgba(255,255,255,0.8);
+    }
+
+    @media (max-width: 900px) {
+      .ticket-wrapper { transform: rotate(0); }
+      .ticket { flex-direction: column; mask-image: none; -webkit-mask-image: none; height: auto; }
+      .ticket-main { width: 100%; border-right: none; border-bottom: 2px dashed rgba(0,0,0,0.1); }
+      .stub { width: 100%; padding: 3rem 2.5rem; }
+      .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 3rem;
+      }
+      .footer-logo, .footer-socials { justify-self: center; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loader: stadium seating pulse → zoom → court -->
+  <div class="loader" id="loader">
+    <div class="loader-stadium-wrap" aria-hidden="true">
+      <svg viewBox="0 0 500 500" class="loader-stadium" id="stadium-svg">
+        <g class="arena-court-group">
+          <!-- Main Surface -->
+          <rect class="arena-court" x="190" y="210" width="120" height="80" rx="2" style="animation-delay: 2.3s;" />
+          
+          <!-- Singles Sidelines -->
+          <line x1="190" y1="222" x2="310" y2="222" class="arena-net" style="animation-delay: 2.4s; stroke-width: 1.5; opacity: 0.8;" />
+          <line x1="190" y1="278" x2="310" y2="278" class="arena-net" style="animation-delay: 2.4s; stroke-width: 1.5; opacity: 0.8;" />
+          
+          <!-- Service Lines -->
+          <line x1="225" y1="222" x2="225" y2="278" class="arena-net" style="animation-delay: 2.5s; stroke-width: 1.5; opacity: 0.8;" />
+          <line x1="275" y1="222" x2="275" y2="278" class="arena-net" style="animation-delay: 2.5s; stroke-width: 1.5; opacity: 0.8;" />
+          
+          <!-- Center Service Line -->
+          <line x1="225" y1="250" x2="275" y2="250" class="arena-net" style="animation-delay: 2.6s; stroke-width: 1.5; opacity: 0.8;" />
+          
+          <!-- The Net -->
+          <line x1="250" y1="210" x2="250" y2="290" class="arena-net" style="animation-delay: 2.7s; stroke-width: 2.5;" />
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="main-content" id="main-content">
+  <div class="noise" aria-hidden="true"></div>
+  <div id="page-bg-overlay"></div>
+
+  <nav>
+    <a href="#" class="logo"><img src="Australian_Open_idjohsDmVs_1.svg" alt="Australian Open" /></a>
+    <ul class="nav-links">
+      <li><a href="404.html">Tournament</a></li>
+      <li><a href="404.html">Watch</a></li>
+      <li><a href="404.html">News</a></li>
+      <li><a href="404.html">Visit</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="404.html" class="nav-signin">Sign in</a>
+      <a href="404.html" class="nav-btn">AO Reserve</a>
+    </div>
+  </nav>
+
+  <main>
+    <!-- We wrap the hero in a GSAP parallax container for the new image -->
+    <div class="hero-parallax-wrapper" style="position: relative; width: 100%; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-top: -85px; padding-top: 85px;">
+      <img src="https://images.unsplash.com/photo-1709403552725-97e0ba206cb8?q=80&w=2532&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Hero background" class="hero-img-bg" style="position: absolute; top: -15%; left: 0; width: 100%; height: 130%; object-fit: cover; z-index: 0; filter: brightness(0.65) saturate(1.2);">
+      
+      <section class="hero" style="position: relative; z-index: 1; width: 100%;">
+        <p class="hero-badge">Grand Slam</p>
+        <h1>
+          Australian Open
+          <span class="melbourne">Melbourne</span>
+        </h1>
+        <p class="hero-dates">11 — 31 January 2027</p>
+        <a href="404.html" class="hero-cta">Get tickets</a>
+      </section>
+    </div>
+
+    <!-- Historical Story Scroll Section -->
+    <section class="story-section">
+      <div class="story-sticky">
+        <div class="story-huge-text" id="story-text">
+          From 1905 to the world stage — From 1905 to the world stage —
+        </div>
+        <div class="story-track" id="story-track">
+          <div class="story-intro">
+            <h2>The <span class="highlight">Journey</span> Began</h2>
+          </div>
+          <div class="story-card">
+            <div class="story-card-img-wrap">
+              <img src="history/warehousemans_cricket_club.jpg" alt="1905 Warehousemans Cricket Club">
+            </div>
+            <div class="story-card-content">
+              <span class="story-card-year">1905</span>
+              <h3 class="story-card-title">Warehouseman's Cricket Club</h3>
+              <p class="story-card-desc">The first tournament took place in Melbourne, where Rodney Heath became the inaugural champion.</p>
+            </div>
+          </div>
+          <div class="story-card">
+            <div class="story-card-img-wrap">
+              <img src="history/adelaide_oval.jpg" alt="1908 Adelaide Oval">
+            </div>
+            <div class="story-card-content">
+              <span class="story-card-year">1908</span>
+              <h3 class="story-card-title">Expanding the Vision</h3>
+              <p class="story-card-desc">The championships traveled to Adelaide, showcasing the growing national interest in the sport.</p>
+            </div>
+          </div>
+          <div class="story-card">
+            <div class="story-card-img-wrap">
+              <img src="history/perth_zoo.jpg" alt="1909 Perth Zoo">
+            </div>
+            <div class="story-card-content">
+              <span class="story-card-year">1909</span>
+              <h3 class="story-card-title">Tennis at the Zoo</h3>
+              <p class="story-card-desc">In one of the most unique settings in tennis history, the 1909 championships were held at the Perth Zoo.</p>
+            </div>
+          </div>
+          <div class="story-card">
+            <div class="story-card-img-wrap">
+              <img src="history/double_bay_grounds.jpg" alt="1922 Double Bay">
+            </div>
+            <div class="story-card-content">
+              <span class="story-card-year">1922</span>
+              <h3 class="story-card-title">A New Era for Women</h3>
+              <p class="story-card-desc">The tournament returned to Sydney, marking the first year women competed for the title.</p>
+            </div>
+          </div>
+          <div class="story-card" id="modern-era-card">
+            <div class="story-card-img-wrap" style="aspect-ratio: 16/9;">
+              <img src="coco_gauff_modern_era_ao_1773420101582.png" alt="Modern Era Coco Gauff">
+            </div>
+            <div class="story-card-content">
+              <span class="story-card-year">MODERN ERA</span>
+              <h3 class="story-card-title">The World Stage</h3>
+              <p class="story-card-desc">Today, the Australian Open is a global spectacle, blending heritage with high-octane modern tennis.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Full Screen Video Reel Section – iframe loads when in view for reliable autoplay -->
+    <section class="video-reel-section" id="video-reel">
+      <div class="video-container">
+        <div class="video-wrapper">
+          <iframe 
+            id="youtube-embed"
+            class="youtube-iframe"
+            src="https://www.youtube.com/embed/L6n1tZ9l45M?enablejsapi=1&autoplay=1&mute=1&controls=0&loop=1&playlist=L6n1tZ9l45M&rel=0&showinfo=0" 
+            title="Australian Open Highlights" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- Match Recaps Section -->
+    <section class="recaps-section">
+      <header class="recaps-intro">
+        <p class="recaps-intro__label reveal-item">Highlights</p>
+        <h2 class="recaps-intro__title split-reveal"><span>Experience the Action</span></h2>
+        <p class="recaps-intro__sub reveal-item">Relive the biggest moments from Melbourne Park.</p>
+      </header>
+      <div class="recaps-grid">
+        <a class="recap-link" href="https://www.youtube.com/watch?v=Z99RntcbEtY" target="_blank" rel="noopener noreferrer">
+          <div class="recap-flip-inner">
+            <div class="recap-front">
+              <img src="https://img.youtube.com/vi/Z99RntcbEtY/hqdefault.jpg" alt="Carlos Alcaraz vs Novak Djokovic">
+              <div class="recap-content">
+                <p>Carlos Alcaraz vs Novak Djokovic</p>
+                <span>Watch highlights</span>
+              </div>
+            </div>
+            <div class="recap-back">
+              <div class="recap-back-header">
+                <div>
+                  <p class="recap-back-event">Men's Singles</p>
+                  <p class="recap-back-meta">Final · Rod Laver Arena</p>
+                </div>
+                <div class="recap-back-status">
+                  <span class="status">Complete</span>
+                  <p class="duration">2h 15m</p>
+                </div>
+              </div>
+              <div class="recap-back-players">
+                <div class="recap-back-row">
+                  <span class="recap-back-player">
+                    <span class="recap-back-flag"><img src="https://flagcdn.com/32x24/rs.png" alt="Serbia" width="22" height="16" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="recap-back-flag-emoji" aria-hidden="true" style="display:none">🇷🇸</span></span>
+                    <span class="recap-back-name">N. Djokovic</span>
+                  </span>
+                  <span class="recap-back-scores">4-6 6-3 6-4</span>
+                </div>
+                <div class="recap-back-row winner">
+                  <span class="recap-back-player">
+                    <span class="recap-back-flag"><img src="https://flagcdn.com/32x24/es.png" alt="Spain" width="22" height="16" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="recap-back-flag-emoji" aria-hidden="true" style="display:none">🇪🇸</span></span>
+                    <span class="recap-back-name">C. Alcaraz</span>
+                  </span>
+                  <span class="recap-back-scores">6-4 7-6 6-3</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <a class="recap-link" href="https://www.youtube.com/watch?v=69CCqjPNc6o" target="_blank" rel="noopener noreferrer">
+          <div class="recap-flip-inner">
+            <div class="recap-front">
+              <img src="https://img.youtube.com/vi/69CCqjPNc6o/hqdefault.jpg" alt="Elena Rybakina vs Aryna Sabalenka">
+              <div class="recap-content">
+                <p>Elena Rybakina vs Aryna Sabalenka</p>
+                <span>Watch highlights</span>
+              </div>
+            </div>
+            <div class="recap-back">
+              <div class="recap-back-header">
+                <div>
+                  <p class="recap-back-event">Women's Singles</p>
+                  <p class="recap-back-meta">Semi-final · Rod Laver Arena</p>
+                </div>
+                <div class="recap-back-status">
+                  <span class="status">Complete</span>
+                  <p class="duration">1h 52m</p>
+                </div>
+              </div>
+              <div class="recap-back-players">
+                <div class="recap-back-row">
+                  <span class="recap-back-player">
+                    <span class="recap-back-flag"><img src="https://flagcdn.com/32x24/kz.png" alt="Kazakhstan" width="22" height="16" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="recap-back-flag-emoji" aria-hidden="true" style="display:none">🇰🇿</span></span>
+                    <span class="recap-back-name">E. Rybakina</span>
+                  </span>
+                  <span class="recap-back-scores">4-6 3-6</span>
+                </div>
+                <div class="recap-back-row winner">
+                  <span class="recap-back-player">
+                    <span class="recap-back-flag"><img src="https://flagcdn.com/32x24/by.png" alt="Belarus" width="22" height="16" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="recap-back-flag-emoji" aria-hidden="true" style="display:none">🇧🇾</span></span>
+                    <span class="recap-back-name">A. Sabalenka</span>
+                  </span>
+                  <span class="recap-back-scores">6-4 6-3</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <a class="recap-link" href="https://www.youtube.com/watch?v=kYlFxO1HA_A" target="_blank" rel="noopener noreferrer">
+          <div class="recap-flip-inner">
+            <div class="recap-front">
+              <img src="https://img.youtube.com/vi/kYlFxO1HA_A/hqdefault.jpg" alt="Alcaraz vs Zverev">
+              <div class="recap-content">
+                <p>Alcaraz vs Zverev</p>
+                <span>Watch highlights</span>
+              </div>
+            </div>
+            <div class="recap-back">
+              <div class="recap-back-header">
+                <div>
+                  <p class="recap-back-event">Men's Singles</p>
+                  <p class="recap-back-meta">Semi-final · Rod Laver Arena</p>
+                </div>
+                <div class="recap-back-status">
+                  <span class="status">Complete</span>
+                  <p class="duration">2h 08m</p>
+                </div>
+              </div>
+              <div class="recap-back-players">
+                <div class="recap-back-row">
+                  <span class="recap-back-player">
+                    <span class="recap-back-flag"><img src="https://flagcdn.com/32x24/de.png" alt="Germany" width="22" height="16" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="recap-back-flag-emoji" aria-hidden="true" style="display:none">🇩🇪</span></span>
+                    <span class="recap-back-name">A. Zverev</span>
+                  </span>
+                  <span class="recap-back-scores">3-6 6-3 4-6</span>
+                </div>
+                <div class="recap-back-row winner">
+                  <span class="recap-back-player">
+                    <span class="recap-back-flag"><img src="https://flagcdn.com/32x24/es.png" alt="Spain" width="22" height="16" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="recap-back-flag-emoji" aria-hidden="true" style="display:none">🇪🇸</span></span>
+                    <span class="recap-back-name">C. Alcaraz</span>
+                  </span>
+                  <span class="recap-back-scores">6-3 3-6 6-4</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <a class="recap-link" href="https://www.youtube.com/watch?v=zDn5WfnV5g0" target="_blank" rel="noopener noreferrer">
+          <div class="recap-flip-inner">
+            <div class="recap-front">
+              <img src="https://img.youtube.com/vi/zDn5WfnV5g0/hqdefault.jpg" alt="Novak Djokovic vs Jannik Sinner">
+              <div class="recap-content">
+                <p>Novak Djokovic vs Jannik Sinner</p>
+                <span>Watch highlights</span>
+              </div>
+            </div>
+            <div class="recap-back">
+              <div class="recap-back-header">
+                <div>
+                  <p class="recap-back-event">Men's Singles</p>
+                  <p class="recap-back-meta">Quarter-final · Rod Laver Arena</p>
+                </div>
+                <div class="recap-back-status">
+                  <span class="status">Complete</span>
+                  <p class="duration">1h 34m</p>
+                </div>
+              </div>
+              <div class="recap-back-players">
+                <div class="recap-back-row">
+                  <span class="recap-back-player">
+                    <span class="recap-back-flag"><img src="https://flagcdn.com/32x24/rs.png" alt="Serbia" width="22" height="16" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="recap-back-flag-emoji" aria-hidden="true" style="display:none">🇷🇸</span></span>
+                    <span class="recap-back-name">N. Djokovic</span>
+                  </span>
+                  <span class="recap-back-scores">1-6 2-6</span>
+                </div>
+                <div class="recap-back-row winner">
+                  <span class="recap-back-player">
+                    <span class="recap-back-flag"><img src="https://flagcdn.com/32x24/it.png" alt="Italy" width="22" height="16" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="recap-back-flag-emoji" aria-hidden="true" style="display:none">🇮🇹</span></span>
+                    <span class="recap-back-name">J. Sinner</span>
+                  </span>
+                  <span class="recap-back-scores">6-1 6-2</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Player Champions Section – Cinematic Marquee -->
+    <section class="players-section">
+      <header class="players-intro">
+        <p class="players-intro__label reveal-item">The Best in the World</p>
+        <h2 class="players-intro__title split-reveal"><span>Defending Champions</span></h2>
+      </header>
+      <div class="players-scroll-wrap">
+        <div class="players-marquee-track">
+
+          <!-- Set 1 -->
+          <article class="player-card">
+            <img src="images/jannik-sinner.jpg" alt="Jannik Sinner">
+            <div class="player-info"><h4>Jannik Sinner</h4><p>Men's Singles Champion</p></div>
+          </article>
+          <article class="player-card">
+            <img src="images/aryna-sabalenka.jpg" alt="Aryna Sabalenka">
+            <div class="player-info"><h4>Aryna Sabalenka</h4><p>Women's Singles Champion</p></div>
+          </article>
+          <article class="player-card">
+            <img src="carlos-alcaraz.jpg" alt="Carlos Alcaraz">
+            <div class="player-info"><h4>Carlos Alcaraz</h4><p>Men's Singles</p></div>
+          </article>
+          <article class="player-card">
+            <img src="images/elena-rybakina.jpg" alt="Elena Rybakina">
+            <div class="player-info"><h4>Elena Rybakina</h4><p>Women's Singles</p></div>
+          </article>
+          <article class="player-card">
+            <img src="https://m.thepeninsulaqatar.com/get/maximage/20240123_1706014251-901.jpeg?1706014251" alt="Novak Djokovic">
+            <div class="player-info"><h4>Novak Djokovic</h4><p>Men's Singles</p></div>
+          </article>
+          <article class="player-card">
+            <img src="https://cloudfront-us-east-2.images.arcpublishing.com/reuters/JTRABOL44NOMXIF76QO67D7PMM.jpg" alt="Alexander Zverev">
+            <div class="player-info"><h4>Alexander Zverev</h4><p>Men's Singles</p></div>
+          </article>
+          <article class="player-card">
+            <img src="images/coco-gauff.jpg" alt="Coco Gauff">
+            <div class="player-info"><h4>Coco Gauff</h4><p>Women's Singles</p></div>
+          </article>
+          <article class="player-card">
+            <img src="images/daniil-medvedev.jpg" alt="Daniil Medvedev">
+            <div class="player-info"><h4>Daniil Medvedev</h4><p>Men's Singles</p></div>
+          </article>
+
+          <!-- Set 2 – exact duplicate for seamless loop -->
+          <article class="player-card" aria-hidden="true">
+            <img src="images/jannik-sinner.jpg" alt="">
+            <div class="player-info"><h4>Jannik Sinner</h4><p>Men's Singles Champion</p></div>
+          </article>
+          <article class="player-card" aria-hidden="true">
+            <img src="images/aryna-sabalenka.jpg" alt="">
+            <div class="player-info"><h4>Aryna Sabalenka</h4><p>Women's Singles Champion</p></div>
+          </article>
+          <article class="player-card" aria-hidden="true">
+            <img src="carlos-alcaraz.jpg" alt="">
+            <div class="player-info"><h4>Carlos Alcaraz</h4><p>Men's Singles</p></div>
+          </article>
+          <article class="player-card" aria-hidden="true">
+            <img src="images/elena-rybakina.jpg" alt="">
+            <div class="player-info"><h4>Elena Rybakina</h4><p>Women's Singles</p></div>
+          </article>
+          <article class="player-card" aria-hidden="true">
+            <img src="https://m.thepeninsulaqatar.com/get/maximage/20240123_1706014251-901.jpeg?1706014251" alt="">
+            <div class="player-info"><h4>Novak Djokovic</h4><p>Men's Singles</p></div>
+          </article>
+          <article class="player-card" aria-hidden="true">
+            <img src="https://cloudfront-us-east-2.images.arcpublishing.com/reuters/JTRABOL44NOMXIF76QO67D7PMM.jpg" alt="">
+            <div class="player-info"><h4>Alexander Zverev</h4><p>Men's Singles</p></div>
+          </article>
+          <article class="player-card" aria-hidden="true">
+            <img src="images/coco-gauff.jpg" alt="">
+            <div class="player-info"><h4>Coco Gauff</h4><p>Women's Singles</p></div>
+          </article>
+          <article class="player-card" aria-hidden="true">
+            <img src="images/daniil-medvedev.jpg" alt="">
+            <div class="player-info"><h4>Daniil Medvedev</h4><p>Men's Singles</p></div>
+          </article>
+
+        </div>
+      </div>
+      <a href="404.html" class="btn-view-all">View All Players</a>
+    </section>
+
+    <!-- Animated image section -->
+    <section class="animated-image-section">
+      <div class="animated-image-wrap">
+        <img src="5b31df40-eae9-11f0-8a5c-81e1c85f6b52.jpg" alt="Melbourne Park" />
+      </div>
+    </section>
+
+    <!-- Simplified Reserve Section -->
+    <!-- Luxury AO Reserve Redesign -->
+    <section class="reserve-section-wrap" id="reserve-entry">
+      <header class="reserve-journal-intro">
+        <span class="label reveal-item">AO27 Premium Experience Hits New Heights</span>
+        <h2 class="split-reveal"><span>Welcome to AO Reserve</span></h2>
+        <p class="brand-story reveal-item">
+          Where Grand Slam tennis meets relaxed Australian luxury. From curated spaces and menus to exclusive court-side access, AO Reserve sets a new standard for international event hospitality.
+        </p>
+      </header>
+
+      <div class="reserve-bento-grid">
+        <!-- Bento Card: Cinematic Video Background (Silent Autoplay) -->
+        <div class="bento-card video-main" style="background-image: url('https://cf-images.ap-southeast-2.prod.boltdns.net/v1/jit/4447531182001/e72027fc-1c75-489d-96ad-863d79dfcddd/main/1280x720/15s29ms/match/image.jpg'); background-size: cover; background-position: center; overflow: hidden;">
+          <!-- Official AO Reserve 2026 Cinematic Video -->
+          <iframe 
+            src="https://players.brightcove.net/4447531182001/JpEoRDU6w_default/index.html?videoId=6390717842112&autoplay=1&muted=1&controls=0&loop=1&playsinline=1"
+            allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+            allowfullscreen
+            class="video-bg"
+            style="border:none; width:110%; height:110%; object-fit: cover; pointer-events: none; position: absolute; top:50%; left:50%; transform: translate(-50%, -50%) scale(1.1); z-index: 1;">
+          </iframe>
+          <div class="bento-overlay" style="z-index: 2;"></div>
+        </div>
+
+        <!-- Bento Card: On-Court by Piper-Heidsieck -->
+        <div class="bento-card package-tier">
+          <img src="https://ausopen.com/sites/default/files/styles/1600x/public/202602/25/taa004-10-sushi-room-001-michaelpham-webres_0.jpg?itok=jEIJAhVu" alt="On-Court Dining" class="card-img">
+          <div class="card-content">
+            <span class="tag">Ultra-VIP Experience</span>
+            <h3 class="tier-title">On-Court presented by Piper-Heidsieck</h3>
+            <p>The Australian Open’s most exclusive VIP experience, with unmatchable on-court seats on Rod Laver Arena paired with world-class dining.</p>
+          </div>
+          <div class="price-row">
+            <span class="price-label">From</span>
+            <span class="price-val">$2,999</span>
+          </div>
+        </div>
+
+        <!-- Bento Card: The Lounge -->
+        <div class="bento-card package-tier">
+          <img src="https://ausopen.com/sites/default/files/styles/1600x/public/202602/20/taa004-03-terrace-045-michaelpham-webres.jpg?itok=Cdx-PQzg" alt="The Lounge" class="card-img">
+          <div class="card-content">
+            <span class="tag">Luxury Social</span>
+            <h3 class="tier-title">The Lounge</h3>
+            <p>Curated specially for larger groups, enjoy prime arena seats and a private hosting area with direct Rod Laver Arena access from The Lounge.</p>
+          </div>
+          <div class="price-row">
+            <span class="price-label">From</span>
+            <span class="price-val">$1,249</span>
+          </div>
+        </div>
+
+        <!-- Bento Card: Champions Rooftop by Peter Gilmore -->
+        <div class="bento-card package-tier">
+          <img src="https://ausopen.com/sites/default/files/styles/1600x/public/202602/25/taa004-12-champions-rooftop-055-michaelpham-webres-1.jpg?itok=h5PhAqdh" alt="Champions Rooftop" class="card-img">
+          <div class="card-content">
+            <span class="tag">Al Fresco Dining</span>
+            <h3 class="tier-title">Champions Rooftop by Peter Gilmore</h3>
+            <p>Signature al fresco roving menu by world-renowned chef Peter Gilmore with unparalleled rooftop views of Melbourne Park.</p>
+          </div>
+          <div class="price-row">
+            <span class="price-label">From</span>
+            <span class="price-val">$995</span>
+          </div>
+        </div>
+
+        <!-- Bento Card: Club 1905 by Simon Rogan -->
+        <div class="bento-card package-tier">
+          <img src="https://ausopen.com/sites/default/files/styles/650x/public/202602/20/taa003-05-club-1905-086-michaelpham-webres.jpg?itok=pQtirVne" alt="Club 1905" class="card-img">
+          <div class="card-content">
+            <span class="tag">Modern British Elegance</span>
+            <h3 class="tier-title">Club 1905 by Simon Rogan</h3>
+            <p>An intimate farm-to-table dining experience by Simon Rogan, celebrating the finest seasonal Victorian produce.</p>
+          </div>
+          <div class="price-row">
+            <span class="price-label">From</span>
+            <span class="price-val">$850</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Media / News -->
+    <section class="media-section">
+      <header class="section-intro">
+        <p class="label">Media</p>
+        <h2>News &amp; Stories</h2>
+      </header>
+      <div class="media-grid">
+        <a href="404.html" class="media-card">
+          <img src="https://ausopen.com/sites/default/files/202603/11/learner-tien.jpg" alt="">
+          <div class="media-body">
+            <p class="media-date">12 March 2025</p>
+            <h3 class="media-title">Another year, and more milestones for Learner Tien..</h3>
+          </div>
+        </a>
+        <a href="404.html" class="media-card">
+          <img src="https://ausopen.com/sites/default/files/202603/10/djokovic-sinner_australian-open-2026-semifinal.jpg" alt="">
+          <div class="media-body">
+            <p class="media-date">11 March 2025</p>
+            <h3 class="media-title">Top 10 matches at Australian Open 2026</h3>
+          </div>
+        </a>
+        <a href="404.html" class="media-card">
+          <img src="https://ausopen.com/sites/default/files/202603/6/sabalenka-rybakina.jpg" alt="">
+          <div class="media-body">
+            <p class="media-date">10 March 2025</p>
+            <h3 class="media-title">IWD: Celebrating the iconic women who've played AO final rematches</h3>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Partners marquee -->
+    <section class="partners-section">
+      <header class="section-intro">
+        <div class="intro-left">
+          <p class="label">Partners</p>
+          <h2>Our Partners</h2>
+        </div>
+        <div class="intro-right">
+          <p class="subtitle">We’re proud to work with leading brands that share our passion for the game and help bring the Australian Open to life.</p>
+        </div>
+      </header>
+      <div class="partners-marquee-wrap">
+        <div class="partners-marquee">
+          <!-- Primary Set -->
+          <div class="partners-marquee-item"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b6/KIA_logo3.svg" alt="Kia" /></div>
+          <div class="partners-marquee-item"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Emirates_logo.svg" alt="Emirates" /></div>
+          <div class="partners-marquee-item"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/Rolex_wordmark_logo.svg" alt="Rolex" /></div>
+          <div class="partners-marquee-item"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" /></div>
+          <div class="partners-marquee-item"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Logo_of_Red_bull.svg" alt="Red Bull" /></div>
+          <div class="partners-marquee-item"><img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Infosys_logo.svg" alt="Infosys" /></div>
+          
+          <!-- Duplicated for Seamless Loop -->
+          <div class="partners-marquee-item"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b6/KIA_logo3.svg" alt="Kia" /></div>
+          <div class="partners-marquee-item"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Emirates_logo.svg" alt="Emirates" /></div>
+          <div class="partners-marquee-item"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/Rolex_wordmark_logo.svg" alt="Rolex" /></div>
+          <div class="partners-marquee-item"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" /></div>
+          <div class="partners-marquee-item"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Logo_of_Red_bull.svg" alt="Red Bull" /></div>
+          <div class="partners-marquee-item"><img src="https://upload.wikimedia.org/wikipedia/commons/6/62/M%26M%27s_logo.svg" alt="M&M's" /></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ticket Countdown Section (Authentic Paper Redesign) -->
+    <section class="ticket-section">
+      <div class="ticket-wrapper">
+        <div class="ticket">
+          <div class="ticket-main">
+            <div class="ticket-header">
+              <h2>Official Entry Pass</h2>
+              <img src="Australian_Open_idjohsDmVs_1.svg" class="ao-logo-white" alt="AO">
+            </div>
+            <div class="ticket-body">
+              <div class="data-grid">
+                <div class="data-group">
+                    <span class="label">Sector</span>
+                    <span class="value">Rod Laver Arena</span>
+                </div>
+                <div class="data-group">
+                    <span class="label">Defending Champion</span>
+                    <span class="value">Jannik Sinner</span>
+                </div>
+                <div class="data-group">
+                    <span class="label">Time Remaining</span>
+                    <span class="value countdown-highlight" id="full-countdown">00D 00H 00M 00S</span>
+                </div>
+                <div class="data-group">
+                    <span class="label">Match Date</span>
+                    <span class="value">Jan 11, 2027</span>
+                </div>
+                <div class="data-group">
+                    <span class="label">Seat Code</span>
+                    <span class="value">AO-2027-RSV</span>
+                </div>
+                <div class="data-group">
+                    <span class="label">Authorization</span>
+                    <span class="value">CLEARED</span>
+                </div>
+              </div>
+              <div class="ticket-footer-strip">
+                <div class="barcode-container">
+                  <div class="barcode"></div>
+                  <span class="barcode-text">AO 2027 CHAMPIONS SERIES</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="stub">
+            <span class="stub-label">Tournament Stub</span>
+            <div class="data-group" style="margin-bottom: 2rem;">
+                <span class="label">Event</span>
+                <span class="value">Men's Final</span>
+            </div>
+            <div class="data-group" style="margin-bottom: 2rem;">
+                <span class="label">Access</span>
+                <span class="value">All Grounds</span>
+            </div>
+            <a href="404.html" class="btn-ticket-book">Book Now</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-logo">
+          <img src="Australian_Open_idjohsDmVs_1.svg" alt="Australian Open">
+        </div>
+        <div class="footer-socials">
+          <a href="https://x.com/AustralianOpen" class="social-icon" title="X (Twitter)" target="_blank" rel="noopener noreferrer" aria-label="Australian Open on X">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/australianopen/" class="social-icon" title="Instagram" target="_blank" rel="noopener noreferrer" aria-label="Australian Open on Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://www.youtube.com/@AustralianOpen" class="social-icon" title="YouTube" target="_blank" rel="noopener noreferrer" aria-label="Australian Open on YouTube">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+          <a href="https://www.facebook.com/AustralianOpen" class="social-icon" title="Facebook" target="_blank" rel="noopener noreferrer" aria-label="Australian Open on Facebook">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2027 Tennis Australia. Redesign for fun — not affiliated with Tennis Australia.</p>
+        <p>Melbourne Park, VIC 3004 · <a href="404.html">404</a></p>
+      </div>
+    </footer>
+  </main>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://www.youtube.com/iframe_api"></script>
+
+  <script>
+    // Force scroll to top on reload - Hardened logic
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+    window.addEventListener('load', () => window.scrollTo(0, 0));
+    setTimeout(() => window.scrollTo(0, 0), 0);
+    setTimeout(() => window.scrollTo(0, 0), 100);
+
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 80);
+    });
+
+    // YouTube API Integration
+    let ytPlayer;
+    function onYouTubeIframeAPIReady() {
+      ytPlayer = new YT.Player('youtube-embed', {
+        events: {
+          'onReady': (event) => {
+            // Video is pre-loaded and ready to play
+            event.target.mute();
+          }
+        }
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const svg = document.getElementById('stadium-svg');
+      if (!svg) return;
+      
+      const cx = 250;
+      const cy = 250;
+      
+      // Define stadium seating rings (concentric ovals) - 4 Tiers for perfect balance
+      const rings = [
+        { rx: 90, ry: 75, count: 48, w: 7, h: 5 },    // Tier 1 (Center)
+        { rx: 110, ry: 95, count: 64, w: 7.5, h: 5.5 }, // Tier 2
+        { rx: 130, ry: 115, count: 80, w: 8, h: 6 },    // Tier 3
+        { rx: 155, ry: 140, count: 100, w: 8.5, h: 6.5 } // Tier 4
+      ];
+
+      let maxDist = 0;
+      const seats = [];
+
+      rings.forEach((ring) => {
+        // Create 8 "sections" with aisles
+        for (let i = 0; i < ring.count; i++) {
+          if (i % 8 === 0) continue; 
+
+          const angle = (i / ring.count) * Math.PI * 2;
+          const x = cx + ring.rx * Math.cos(angle);
+          const y = cy + ring.ry * Math.sin(angle);
+          const rotation = (angle * 180) / Math.PI + 90;
+          
+          const dist = Math.sqrt(Math.pow(x - cx, 2) + Math.pow(y - cy, 2));
+          if (dist > maxDist) maxDist = dist;
+
+          seats.push({ x, y, rotation, dist, ...ring });
+        }
+      });
+
+      // Generate the SVG seat elements
+      seats.forEach(seat => {
+        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        rect.setAttribute('x', seat.x - seat.w / 2);
+        rect.setAttribute('y', seat.y - seat.h / 2);
+        rect.setAttribute('width', seat.w);
+        rect.setAttribute('height', seat.h);
+        rect.setAttribute('rx', 1.5); // Subtle rounding
+        rect.setAttribute('class', 'stadium-seat');
+        
+        // Use a robust transform attribute
+        rect.setAttribute('transform', `rotate(${seat.rotation} ${seat.x} ${seat.y})`);
+        
+        const normalized = seat.dist / maxDist;
+        const randomJitter = (Math.random() * 0.1) - 0.05;
+        const delay = 0.5 + ((1 - normalized) * 1.6) + randomJitter;
+        
+        rect.style.animationDelay = `${delay}s`;
+        svg.appendChild(rect);
+      });
+
+      // Handle loader sequence timing
+      const loader = document.getElementById('loader');
+      const mainContent = document.getElementById('main-content');
+      
+      setTimeout(() => {
+          loader.classList.add('zoom-out');
+          setTimeout(() => {
+              mainContent.classList.add('visible');
+              setTimeout(() => {
+                  loader.style.display = 'none';
+                  // Remove the transform scale(1) so that the nav's position: fixed works relative to viewport again
+                  mainContent.style.transform = 'none';
+                  // Initialize scroll animations only after the loader completely finishes
+                  initGSAP();
+              }, 1200); // Wait for zoom out animation to finish before removing
+          }, 400); // Reveal content right as the court covers the screen in the scale(25) zoom
+      }, 4000); // Shortened initial duration slightly since court finishes around 3.1s
+    });
+
+    // GSAP Scroll Animations
+    function initGSAP() {
+      if (typeof gsap === 'undefined') return;
+
+      // UX Fix: Disable scroll restoration to prevent anchor jumps and ensure animations start from top
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+      }
+      window.scrollTo(0, 0);
+
+      // Ensure nav is visible immediately
+      gsap.set("nav", { y: 0, opacity: 1 });
+      
+      gsap.registerPlugin(ScrollTrigger);
+
+      // 1. Premium Typography Reveal: Slide up words from invisible masks
+      document.querySelectorAll(".split-reveal span").forEach(span => {
+        gsap.to(span, {
+          scrollTrigger: {
+            trigger: span,
+            start: "top 95%",
+          },
+          y: 0,
+          duration: 1.2,
+          ease: "expo.out",
+          delay: 0.1
+        });
+      });
+
+      // 2. Soft Fade Reveal: For body text, labels, and icons
+      document.querySelectorAll(".reveal-item").forEach(item => {
+        gsap.to(item, {
+          scrollTrigger: {
+            trigger: item,
+            start: "top 95%",
+          },
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power2.out"
+        });
+      });
+
+      // 3. Staggered reveal for Player Cards
+      gsap.to(".player-card", {
+        scrollTrigger: {
+          trigger: ".players-grid",
+          start: "top 85%",
+        },
+        opacity: 1,
+        y: 0,
+        stagger: 0.08,
+        duration: 1.2,
+        ease: "expo.out"
+      });
+
+      // 4. Staggered reveal for Match Recaps cards
+      gsap.from(".recap-link", {
+        scrollTrigger: {
+          trigger: ".recaps-grid",
+          start: "top 85%",
+        },
+        opacity: 0,
+        y: 40,
+        stagger: 0.1,
+        duration: 1,
+        ease: "power3.out"
+      });
+
+      // 5. 3D Parallax Tilt for Player Cards
+      const cards = document.querySelectorAll(".player-card");
+      cards.forEach(card => {
+        card.addEventListener("mousemove", (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          
+          const rotateX = (y - centerY) / 10;
+          const rotateY = (centerX - x) / 10;
+          
+          gsap.to(card, {
+            rotationX: rotateX,
+            rotationY: rotateY,
+            scale: 1.02,
+            duration: 0.5,
+            ease: "power2.out"
+          });
+        });
+        
+        card.addEventListener("mouseleave", () => {
+          gsap.to(card, {
+            rotationX: 0,
+            rotationY: 0,
+            scale: 1,
+            duration: 0.8,
+            ease: "elastic.out(1, 0.3)"
+          });
+        });
+      });
+
+      // 6. Parallax effect on the Hero Image
+      gsap.to(".hero-img-bg", {
+        scrollTrigger: {
+          trigger: ".hero-parallax-wrapper",
+          start: "top top",
+          end: "bottom top", 
+          scrub: true 
+        },
+        y: "25%", 
+        ease: "none"
+      });
+      
+      gsap.to(".hero", {
+        scrollTrigger: {
+           trigger: ".hero-parallax-wrapper",
+           start: "top top",
+           end: "bottom top",
+           scrub: true
+        },
+        y: -100,
+        opacity: 0,
+        ease: "none"
+      });
+
+      // 7. Historical Story Section - Pinned Horizontal Scroll (desktop only)
+      const storyTrack = document.querySelector("#story-track");
+      if (storyTrack && window.innerWidth > 768) {
+        const scrollDistance = storyTrack.offsetWidth - window.innerWidth;
+        const storyTimeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: ".story-section",
+            start: "top top",
+            end: () => `+=${scrollDistance}`, 
+            pin: true,
+            scrub: 1, 
+            invalidateOnRefresh: true,
+            anticipatePin: 1
+          }
+        });
+
+        storyTimeline.fromTo("#story-text", 
+          { x: "30%" }, 
+          { x: "-20%", ease: "none" },
+          0
+        );
+
+        storyTimeline.to("#story-track", {
+          x: () => -scrollDistance,
+          ease: "none"
+        }, 0);
+
+        storyTimeline.to("#modern-era-card .story-card-img-wrap", {
+          scale: 1.2,
+          duration: 0.2
+        }, 0.8);
+      }
+
+      // 8. Video Reel pin (desktop only - mobile uses CSS aspect-ratio)
+      if (window.innerWidth > 768) {
+        ScrollTrigger.create({
+          trigger: "#video-reel",
+          start: "top top",
+          end: "+=50%",
+          pin: true,
+          pinSpacing: true,
+          onEnter: () => {
+            if (typeof ytPlayer !== 'undefined' && ytPlayer.playVideo) {
+              ytPlayer.playVideo();
+              document.getElementById('youtube-embed').classList.add('loaded');
+            }
+          },
+          onLeaveBack: () => {
+            if (typeof ytPlayer !== 'undefined' && ytPlayer.pauseVideo) {
+              ytPlayer.pauseVideo();
+            }
+          }
+        });
+      }
+
+      // 9. Animated image section
+      gsap.fromTo(".animated-image-wrap img", 
+        { scale: 1.15 },
+        {
+          scrollTrigger: {
+            trigger: ".animated-image-section",
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1.2
+          },
+          scale: 1,
+          ease: "none"
+        }
+      );
+
+      // 10. AO Reserve Section: Avenue of Light Transition
+      const lightUpTL = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#reserve-entry",
+          start: "top 90%", 
+          end: "top 20%",
+          scrub: true,
+          onEnter: () => document.body.classList.add('light-theme'),
+          onLeaveBack: () => document.body.classList.remove('light-theme')
+        }
+      });
+
+      lightUpTL.to("#page-bg-overlay", {
+        backgroundColor: "#F5F2ED", 
+        ease: "none"
+      });
+
+      lightUpTL.to([
+        ".reserve-section-wrap", 
+        ".reserve-journal-intro h2", 
+        ".reserve-journal-intro .brand-story",
+        ".bento-card h3",
+        ".bento-card p",
+        "nav.scrolled .nav-signin"
+      ], {
+        color: "#001C3D", 
+        ease: "none"
+      }, 0);
+
+      lightUpTL.to("nav", {
+        backgroundColor: "rgba(245, 242, 237, 0.95)",
+        borderColor: "rgba(0,0,0,0.1)",
+        ease: "none"
+      }, 0.5);
+
+      lightUpTL.to(".logo img", {
+        filter: "invert(1) brightness(0.2)",
+        ease: "none"
+      }, 0.5);
+
+      lightUpTL.to(".nav-links a", {
+        color: "#1a1a1a",
+        ease: "none"
+      }, 0.5);
+
+      gsap.set(".bento-card", { opacity: 1, y: 0 }); 
+      gsap.from(".bento-card", {
+        scrollTrigger: {
+          trigger: ".reserve-bento-grid",
+          start: "top 85%",
+        },
+        opacity: 0,
+        y: 40,
+        stagger: 0.1, 
+        duration: 0.8,
+        ease: "power2.out"
+      });
+
+      document.querySelectorAll('.bento-card img, .bento-card video').forEach(media => {
+        gsap.to(media, {
+          y: -30,
+          scale: 1.1,
+          scrollTrigger: {
+            trigger: media,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true
+          },
+          ease: "none"
+        });
+      });
+
+      function updateCountdown() {
+        const targetDate = new Date("January 11, 2027 00:00:00").getTime();
+        function tick() {
+          const now = new Date().getTime();
+          const distance = targetDate - now;
+          if (distance < 0) {
+            const countdownEl = document.getElementById("full-countdown");
+            if (countdownEl) countdownEl.innerText = "TOURNEY LIVE";
+            return;
+          }
+          const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+          const display = `${String(days).padStart(2, '0')}D ${String(hours).padStart(2, '0')}H ${String(minutes).padStart(2, '0')}M ${String(seconds).padStart(2, '0')}S`;
+          const countdownEl = document.getElementById("full-countdown");
+          if (countdownEl) countdownEl.innerText = display;
+        }
+        tick();
+        setInterval(tick, 1000);
+      }
+      updateCountdown();
+    }
+
+  </script>
+</body>
+</html>
