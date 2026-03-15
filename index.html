@@ -2649,14 +2649,24 @@
   <script src="https://www.youtube.com/iframe_api"></script>
 
   <script>
-    // Force scroll to top on reload - Hardened logic
+    // Force scroll to top on reload / refresh
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual';
     }
-    window.scrollTo(0, 0);
-    window.addEventListener('load', () => window.scrollTo(0, 0));
-    setTimeout(() => window.scrollTo(0, 0), 0);
-    setTimeout(() => window.scrollTo(0, 0), 100);
+    function scrollToTop() {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }
+    scrollToTop();
+    window.addEventListener('load', scrollToTop);
+    window.addEventListener('pageshow', (e) => {
+      if (e.persisted) scrollToTop(); // bfcache restore (e.g. back/forward)
+      scrollToTop();
+    });
+    setTimeout(scrollToTop, 0);
+    setTimeout(scrollToTop, 100);
+    requestAnimationFrame(() => requestAnimationFrame(scrollToTop));
 
     const nav = document.querySelector('nav');
     window.addEventListener('scroll', () => {
